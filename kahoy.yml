@@ -1,0 +1,8 @@
+version: v1
+
+# Groups configuration.
+groups:
+  - id: ns
+    priority: 100
+  - id: apps/app2
+    priority: 500

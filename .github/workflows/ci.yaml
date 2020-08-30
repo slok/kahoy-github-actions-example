@@ -1,0 +1,39 @@
+name: CI
+
+on: [push]
+
+# These are required to authenticate Kahoy against a cluster.
+env:
+  K8S_CA: ${{secrets.K8S_CA}}
+  K8S_SERVER: ${{secrets.K8S_SERVER}}
+  K8S_SA_TOKEN: ${{secrets.K8S_SA_TOKEN}}
+
+jobs:
+  deploy-dry-run:
+    if: github.ref != 'refs/heads/master'
+    name: deploy dry-run
+    runs-on: ubuntu-latest
+    container: slok/kahoy:latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      #- run: ./scripts/ci/k8s-auth.sh
+      - run: git branch master origin/master # Track base branch (origin/master) from remote. Kahoy only works with local branches.
+      - run: ./scripts/ci/deploy.sh dry-run
+      - run: ./scripts/ci/deploy.sh diff
+          
+  deploy:
+    # Only on master.
+    if: github.ref == 'refs/heads/master'
+    name: deploy
+    runs-on: ubuntu-latest
+    container: slok/kahoy:latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      #- run: ./scripts/ci/k8s-auth.sh
+      - run: ./scripts/ci/deploy.sh run
+        env:
+          GIT_BEFORE_COMMIT_SHA: ${{ github.event.before }}
