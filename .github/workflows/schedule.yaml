@@ -2,7 +2,7 @@ name: Schedule sync all
 
 on:
   schedule:
-    - cron:  '*/5 * * * *'
+    - cron:  '0 * * * *'
 
 # These are required to authenticate Kahoy against a cluster.
 env:
