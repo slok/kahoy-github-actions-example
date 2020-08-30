@@ -1,0 +1,45 @@
+# This RBAC resources are used to deploy manifest using Kahoy from CI.
+# Basically the token created for this SA will be used by Kahoy on CI.
+# Remember to get the generated SA token and set up as secrets on CI.
+# This needs to be bootstraped outside kahoy (chicken-egg problem).
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kahoy-deployment
+  namespace: ci
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kahoy-deployment
+  labels:
+    app: kahoy
+rules:
+  - apiGroups:
+      - '*'
+    resources:
+      - '*'
+    verbs:
+      - '*'
+  - nonResourceURLs:
+      - '*'
+    verbs:
+      - '*'
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kahoy-deployment
+  labels:
+    app: kahoy
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kahoy-deployment
+subjects:
+  - name: kahoy-deployment
+    namespace: ci
+    kind: ServiceAccount
