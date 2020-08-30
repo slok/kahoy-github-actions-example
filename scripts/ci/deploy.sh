@@ -42,8 +42,8 @@ case "${1:-"dry-run"}" in
     echo "This should be without dry-run, but we don't have a running cluster"
     kahoy apply \
        --dry-run \
-       --git-before-commit-sha "${GIT_BEFORE_COMMIT_SHA}" \
-       --git-default-branch "${GIT_DEFAULT_BRANCH}" \
+       --mode="paths"
+       --fs-new-manifests-path /dev/null \
        --fs-new-manifests-path "${MANIFESTS_PATH}" \
        --fs-exclude "secret"
     ;;
