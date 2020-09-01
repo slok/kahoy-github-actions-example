@@ -17,7 +17,7 @@ This repository is an example of how you would use Kahoy to maintain in sync a K
 
 Partial sync process handles deploys and deletions only with the changes from one state to the other (e.g. git rev A and git rev B). This is used on regular Git flow (PR, commit push, merge..).
 
-When the PR is created, commits are pushed or branches merged, it will sync only the resources that have been changed (e.g git diff), this involves deploying manifest that changed/created and deleting the ones deleted (Garbage collect).
+When the PR is created, commits are pushed or branches merged, it will sync only the resources that have been changed, this involves deploying manifest that changed/created and deleting the ones deleted (Garbage collect).
 
 ### Full
 
@@ -56,7 +56,7 @@ In this PR we are deploying some resources of different types:
 
 When we where doing this, Kahoy detected a collision on 2 resources having the same ID, Check the [Dry-run execution](https://github.com/slok/kahoy-github-actions-example/runs/1047199817) of the collision.
 
-As we see, the changes on those manifests have been detected and Kahoy planned the `apply` of those resources only (based on PRs git diff).
+As we see, the changes on those manifests have been detected and Kahoy planned the `apply` of those resources only (based on PRs resource diff changes).
 
 ### Remove resources and add others
 

@@ -12,7 +12,7 @@ GIT_DEFAULT_BRANCH=${GIT_DEFAULT_BRANCH:-master} # In case our default branch is
 case "${1:-"dry-run"}" in
 "run")
     #kahoy apply \
-    #    --git-diff-filter \
+    #    --include-changes \
     #    --git-before-commit-sha "${GIT_BEFORE_COMMIT_SHA}" \
     #    --git-default-branch "${GIT_DEFAULT_BRANCH}" \
     #    --fs-new-manifests-path "${MANIFESTS_PATH}" \
@@ -22,7 +22,7 @@ case "${1:-"dry-run"}" in
 "diff")
      #kahoy apply \
      #    --diff \
-     #    --git-diff-filter \
+     #    --include-changes \
      #    --git-before-commit-sha "${GIT_BEFORE_COMMIT_SHA}" \
      #    --git-default-branch "${GIT_DEFAULT_BRANCH}" \
      #    --fs-new-manifests-path "${MANIFESTS_PATH}" \
@@ -32,7 +32,7 @@ case "${1:-"dry-run"}" in
 "dry-run")
     kahoy apply \
         --dry-run \
-        --git-diff-filter \
+        --include-changes \
         --git-before-commit-sha "${GIT_BEFORE_COMMIT_SHA}" \
         --git-default-branch "${GIT_DEFAULT_BRANCH}" \
         --fs-new-manifests-path "${MANIFESTS_PATH}" \
