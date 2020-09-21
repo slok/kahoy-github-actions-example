@@ -42,7 +42,7 @@ case "${1:-"dry-run"}" in
     echo "This should be without dry-run, but we don't have a running cluster"
     kahoy apply \
        --dry-run \
-       --mode="paths" \
+       --provider="paths" \
        --fs-old-manifests-path /dev/null \
        --fs-new-manifests-path "${MANIFESTS_PATH}" \
        --fs-exclude "secret"
